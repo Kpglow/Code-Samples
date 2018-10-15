@@ -1,0 +1,31 @@
+Index.js
+
+Firestore functions written in JavaScript ~ June 2018 - Aug 2018
+
+* ResizeFile: Utilizes Google Cloud Storage and a package called Child-process-promise
+
+What does it do?
+- Once a user uploads an image onto Firestore (NoSQL database chosen for this project),
+the temporary bucket stores that file, and returns a resized file like magic.
+The resizing is done via a function called spawn (documentation not provided) given
+to us by using Child-process-promise. Then we must delete the old file from the
+temp bucket and store the resized jpeg inside the user's directory inside firestore.
+
+Note: Since the resizeFile function utilizes .onFinalize, Firestore will recall this
+function as a recurrence because at the end of the function, there is a call to 
+download the resized image. Hence a recurrence. And in order to stop the recurrence,
+I simply modified the file type to a standard jpg to the contentType which does
+not affect performance nor does it affect security issues.
+
+* daily_job
+- This function handles Http requests to call functions. In this case, the function
+is automatically called via 3rd party Cronjobs. I designed with a foundation that queries
+a snapshot of documents that were not refunded and were not replied to. This function
+may be further modified to extend functionalty and that was why this outer query came to be.
+Within the set of documents that needed refunds and had no replies, the function would also
+look at whether or not the document's submitted_on date is >= 48 hours since that is the 
+policy for SYA. Once the refund is updated and the transaction is done, firestore requires
+a good handling of errors similar to try/catch.
+
+Furthermore as explained in the code itself, there are other many other code fragments that
+are triggered inside index.js as a result of these two functions. 
