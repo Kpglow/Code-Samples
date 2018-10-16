@@ -1,0 +1,11 @@
+-- Previous course-work done in '17
+includes:
+encode.c
+decode.c
+misc files for testing
+
+What does it do?
+Based of C programming, this encoder program is designed to
+encrypt/zip files and also decrypt/unzip files. 
+
+-- Updated on 10/16/18
